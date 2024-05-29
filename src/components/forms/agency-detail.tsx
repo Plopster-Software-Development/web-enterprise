@@ -165,7 +165,7 @@ const AgencyDetails = ({ data }: Props) => {
       let custId = "";
 
       if (isNewUser) {
-        custId = await createStripeCustomer(values);
+        custId = "12312"; //await createStripeCustomer(values)
       }
 
       await initUser({ role: "AGENCY_OWNER" });
