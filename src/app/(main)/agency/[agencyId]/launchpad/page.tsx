@@ -10,6 +10,8 @@ import { db } from "@/lib/db";
 import Image from "next/image";
 import React from "react";
 import { dark } from "@clerk/themes";
+import { CheckCircleIcon } from "lucide-react";
+import Link from "next/link";
 
 type Props = {
   params: {
@@ -27,6 +29,17 @@ const Page = async ({ params, searchParams }: Props) => {
   });
 
   if (!agencyDetails) return;
+
+  const allDetailsExist =
+    agencyDetails.address &&
+    agencyDetails.agencyLogo &&
+    agencyDetails.city &&
+    agencyDetails.companyEmail &&
+    agencyDetails.companyPhone &&
+    agencyDetails.country &&
+    agencyDetails.name &&
+    agencyDetails.state &&
+    agencyDetails.zipCode;
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -71,15 +84,24 @@ const Page = async ({ params, searchParams }: Props) => {
             <div className="flex justify-between items-center w-full border p-4 rounded-lg gap-2">
               <div className="flex md:items-center gap-4 flex-col md:!flex-row">
                 <Image
-                  src={age}
+                  src={agencyDetails.agencyLogo}
                   alt="app logo"
                   height={80}
                   width={80}
                   className="rounded-md object-contain"
                 />
-                <p>Save the website as a shortcut on your mobile device</p>
+                <p>Fill in all your bussiness details</p>
               </div>
-              <Button>Start</Button>
+              {allDetailsExist ? (
+                <CheckCircleIcon
+                  size={50}
+                  className="text-primary p-2 flex-shrink-0"
+                />
+              ) : (
+                <Link href={`/agency/${params.agencyId}/settings`}>
+                  <Button>Start</Button>
+                </Link>
+              )}
             </div>
           </CardContent>
         </Card>
