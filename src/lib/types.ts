@@ -19,6 +19,7 @@ import {
 // } from "./queries";
 import { db } from "./db";
 import { z } from "zod";
+import { getAuthUserDetails, getUserPermissions } from "./queries";
 
 // import Stripe from 'stripe'
 
@@ -37,9 +38,9 @@ export type NotificationWithUser =
     } & Notification)[]
   | undefined;
 
-// export type UserWithPermissionsAndSubAccounts = Prisma.PromiseReturnType<
-//   typeof getUserPermissions
-// >;
+export type UserWithPermissionsAndSubAccounts = Prisma.PromiseReturnType<
+  typeof getUserPermissions
+>;
 
 export const FunnelPageSchema = z.object({
   name: z.string().min(1),
@@ -58,8 +59,8 @@ const __getUsersWithAgencySubAccountPermissionsSidebarOptions = async (
   });
 };
 
-// export type AuthUserWithAgencySigebarOptionsSubAccounts =
-//   Prisma.PromiseReturnType<typeof getAuthUserDetails>;
+export type AuthUserWithAgencySigebarOptionsSubAccounts =
+  Prisma.PromiseReturnType<typeof getAuthUserDetails>;
 
 export type UsersWithAgencySubAccountPermissionsSidebarOptions =
   Prisma.PromiseReturnType<
